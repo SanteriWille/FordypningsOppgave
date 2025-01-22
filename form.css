@@ -1,0 +1,88 @@
+body {
+  font-family: "Montserrat", serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 35px;
+  color: #444;
+  font-size: 25px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#showP {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px; 
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+input {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #5dbea3;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5dbea3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4aa485;
+}
+
+a {
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
