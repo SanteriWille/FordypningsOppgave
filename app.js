@@ -85,5 +85,5 @@ startBtn.addEventListener('click', startGame);
 
 // Knytt logg ut-knappen til å gå til index.html
 logoutBtn.addEventListener('click', () => {
-  window.location.href = 'index.html';
+  window.location.href = 'login.html';
 });
