@@ -1,17 +1,17 @@
 let score = 0;
 let timer = 30;
 let correctColor;
-let colorOptions = [];
 let gameInterval;
 let timerInterval;
 
-let colorBox = document.getElementById('colorBox');
-let optionsDiv = document.getElementById('options');
-let scoreDisplay = document.getElementById('score');
-let timerDisplay = document.getElementById('timer');
-let startBtn = document.getElementById('startBtn');
+const colorBox = document.getElementById('colorBox');
+const optionsDiv = document.getElementById('options');
+const scoreDisplay = document.getElementById('score');
+const timerDisplay = document.getElementById('timer');
+const startBtn = document.getElementById('startBtn');
+const logoutBtn = document.getElementById('logoutBtn');
 
-// Funksjon for å generere en tilfeldig farge
+// Funksjon for å generere en tilfeldig farge i HEX-format
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -27,11 +27,11 @@ function startGame() {
   timer = 30;
   scoreDisplay.textContent = 'Poeng: ' + score;
   timerDisplay.textContent = 'Tid: ' + timer;
-  
+
   startBtn.style.display = 'none';
   createNewRound();
-  
-  // Sett opp timer
+
+  // Start timer
   timerInterval = setInterval(() => {
     timer--;
     timerDisplay.textContent = 'Tid: ' + timer;
@@ -45,11 +45,11 @@ function startGame() {
 
 // Funksjon for å lage en ny runde
 function createNewRound() {
-  colorBox.style.backgroundColor = getRandomColor();  // Tilfeldig bakgrunnsfarge
-  correctColor = colorBox.style.backgroundColor;
+  correctColor = getRandomColor();
+  colorBox.style.backgroundColor = correctColor;
 
   // Generer alternative farger
-  colorOptions = [correctColor];
+  let colorOptions = [correctColor];
   while (colorOptions.length < 4) {
     let randomColor = getRandomColor();
     if (!colorOptions.includes(randomColor)) {
@@ -77,10 +77,13 @@ function checkAnswer(selectedColor) {
     score++;
     scoreDisplay.textContent = 'Poeng: ' + score;
     createNewRound(); // Start ny runde
-  } else {
-    alert('Feil! Prøv igjen.');
   }
 }
 
 // Knytt startknappen til startGame-funksjonen
 startBtn.addEventListener('click', startGame);
+
+// Knytt logg ut-knappen til å gå til index.html
+logoutBtn.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
