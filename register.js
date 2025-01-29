@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, setDoc, doc, } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,38 +19,43 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Sign up Inputs
+const username = document.getElementById("username")
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const rePassword = document.getElementById("rePassword")
 
 // Sign up Submit
-const submitBtn = document.getElementById("submit");
-submitBtn.addEventListener("click", function (event) {
+const submitBtn = document.getElementById("submit")
+submitBtn.addEventListener("click", async function (event) {
   event.preventDefault();
 
   if (rePassword.value !== password.value) {
-    alert("Passordet er ikke er det samme")
+    alert("Passordet er ikke er det samme");
     return;
   }
 
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then((userCredential) => {
-      // Signed up
-      const user = userCredential.user;
-      alert("Lager bruker...")
-      window.location.href = 'spill.html'
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage)
+  try {
+    // Lag bruker med passord og email
+    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+    const user = userCredential.user;
+
+    // Sende data i firebase database
+    await setDoc(doc(db, "users", user.uid), {
+      email: email.value,
+      brukernavn: username.value
     });
 
-  email.value = '';
-  password.value = '';
-  rePassword.value = '';
+    alert("Lager bruker...");
+    window.location.href = 'login.html';
+    document.querySelector("form").reset();
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage);
+  }
 });
 
 // Hvis passord
