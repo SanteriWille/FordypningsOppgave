@@ -45,7 +45,8 @@ submitBtn.addEventListener("click", async function (event) {
     // Sende data i firebase database
     await setDoc(doc(db, "users", user.uid), {
       email: email.value,
-      brukernavn: username.value
+      brukernavn: username.value,
+      score: 0
     });
 
     alert("Lager bruker...");
