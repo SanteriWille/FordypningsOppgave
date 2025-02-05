@@ -39,6 +39,10 @@ body {
 
 .game-container,
 .leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background-color: #fff;
   padding: 20px;
@@ -46,6 +50,7 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
+  max-height: 85vh;
 }
 
 .color-box {

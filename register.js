@@ -51,6 +51,8 @@ submitBtn.addEventListener("click", async function (event) {
   }
 
   try {
+    showAlert('Bruker opprettes...');
+
     // Lag bruker med passord og email
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
     const user = userCredential.user;
@@ -62,8 +64,11 @@ submitBtn.addEventListener("click", async function (event) {
       score: 0
     });
 
-    alert("Lager bruker...");
-    window.location.href = 'login.html';
+    showAlert("Bruker opprettet!")
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 200);
+
     document.querySelector("form").reset();
   } catch (error) {
     const errorCode = error.code;
@@ -71,6 +76,23 @@ submitBtn.addEventListener("click", async function (event) {
     alert(errorMessage);
   }
 });
+
+// Alert melding
+function showAlert(message) {
+  const popup = document.getElementById('popupAlert');
+  const popupMessage = document.getElementById('popupMessage');
+  
+  popupMessage.textContent = message;
+  popup.style.display = 'block';
+  popup.style.opacity = 1; 
+  
+  setTimeout(() => {
+    popup.style.opacity = 0;
+    setTimeout(() => {
+      popup.style.display = 'none'; 
+    }, 700); 
+  }, 400); 
+}
 
 // Hvis passord
 const checkbox = document.getElementById("showP")
