@@ -83,11 +83,6 @@ function checkAnswer(selectedColor) {
 // Knytt startknappen til startGame-funksjonen
 startBtn.addEventListener('click', startGame);
 
-// Knytt logg ut-knappen til å gå til index.html
-logoutBtn.addEventListener('click', () => {
-  window.location.href = 'login.html';
-});
-
 // Knytt logg ut-knappen til å gå til leaderboard.html
 leaderboardBtn.addEventListener('click', () => {
   window.location.href = 'leaderboard.html';
