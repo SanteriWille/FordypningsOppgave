@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, setDoc, doc, } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"
+import { getFirestore, setDoc, doc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,6 +34,19 @@ submitBtn.addEventListener("click", async function (event) {
 
   if (rePassword.value !== password.value) {
     alert("Passordet er ikke er det samme");
+    return;
+  }
+
+  // Hvis brukernavn er tatt
+  const usernameQuery = query(
+    collection(db,"users"),
+    where("brukernavn", "==", username.value)
+  )
+
+  const querySnapshot = await getDocs(usernameQuery);
+
+  if(!querySnapshot.empty) {
+    alert("Brukernavn er allerede i bruk. Velg et annet.");
     return;
   }
 

@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, doc, getDoc} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -17,6 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Logg inn Inputs
 const logEmail = document.getElementById("logEmail");
@@ -24,24 +26,34 @@ const logPassword = document.getElementById("logPassword");
 
 // Logg inn submit
 const logSubmitBtn = document.getElementById("logSubmit")
-logSubmitBtn.addEventListener("click", function (event) {
-  event.preventDefault()
+logSubmitBtn.addEventListener("click", async function (event) {
+  event.preventDefault();
 
-  signInWithEmailAndPassword(auth, logEmail.value, logPassword.value)
-  .then((userCredential) => {
-    // Signed in 
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, logEmail.value, logPassword.value);
     const user = userCredential.user;
+
+    // Fetch user's score from Firestore
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      console.log("User logged in. Current score:", userData.score);
+      localStorage.setItem("userScore", userData.score);
+    } else {
+      console.log("User data not found in Firestore.");
+    }
+
     window.location.href = 'spill.html';
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(errorMessage)
-  });
+
+  } catch (error) {
+    alert(error.message);
+  }
 
   logEmail.value = '';
   logPassword.value = '';
-})
+});
 
 // Hvis passord
 const checkbox = document.getElementById("showP")
