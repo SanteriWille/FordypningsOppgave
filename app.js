@@ -27,6 +27,7 @@ const optionsDiv = document.getElementById('options');
 const scoreDisplay = document.getElementById('score');
 const timerDisplay = document.getElementById('timer');
 const startBtn = document.getElementById('startBtn');
+const leaderboardBtn = document.getElementById("leaderboardBtn")
 const logoutBtn = document.getElementById('logoutBtn');
  
 // Viser logged in bruker sin score
@@ -134,6 +135,11 @@ function endGame() {
 // Knytt startknappen til startGame-funksjonen
 startBtn.addEventListener('click', startGame);
  
+// leaderboard knapp
+leaderboardBtn.addEventListener('click', () => {
+  window.location.href = 'leaderboard.html'
+})
+
 // Logg ut-knappen
 logoutBtn.addEventListener('click', async () => {
   await signOut(auth);
