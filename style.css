@@ -25,6 +25,22 @@ body {
   background-color: #c9302c;
 }
 
+.leaderboard-btn {
+  position: absolute;
+  top: -5px;
+  right: 95px;
+  padding: 10px 15px;
+  background-color: #644fd9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.leaderboard-btn:hover {
+  background-color: #2c2fc9;
+}
+
 .game-container {
   text-align: center;
   background-color: #fff;

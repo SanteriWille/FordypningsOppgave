@@ -87,3 +87,8 @@ startBtn.addEventListener('click', startGame);
 logoutBtn.addEventListener('click', () => {
   window.location.href = 'login.html';
 });
+
+// Knytt logg ut-knappen til å gå til leaderboard.html
+leaderboardBtn.addEventListener('click', () => {
+  window.location.href = 'leaderboard.html';
+});
